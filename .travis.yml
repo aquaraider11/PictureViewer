@@ -1,0 +1,21 @@
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CXX=g++-7"
+
+before_install:
+- sudo apt-get update -qq
+- sudo apt-get install -qq libsfml-dev
+- eval "${MATRIX_EVAL}"
+
+language: cpp
+compiler: g++
+
+script: g++-7 ConsoleApplication4/ConsoleApplication4.cpp ConsoleApplication4/FsHelpers.cpp ConsoleApplication4/Helpers.cpp ConsoleApplication4/Picture.cpp -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system -lpthread -lstdc++fs
